@@ -1,0 +1,2252 @@
+{
+	"info": {
+		"_postman_id": "2c6dadc9-85e2-ed41-b9c7-48c3544e3a80",
+		"name": "REST API Examples",
+		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
+	},
+	"item": [
+		{
+			"name": "Authenticate",
+			"item": [
+				{
+					"name": "Authenticate: Sign-in (As an Admin)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n  <credentials name=\"Admin\" password=\"pass\">\n      <site contentUrl=\"rest\" />\n      </credentials>\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/auth/signin",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"auth",
+								"signin"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate: Sign in (As Tableau User)",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<credentials name=\"Admin\" password=\"pass\">\n    \t<site contentUrl=\"\" />\n        <user id=\"\"/>\n      </credentials>\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://{{IP}}/api/{{version}}/auth/signin",
+							"protocol": "http",
+							"host": [
+								"{{IP}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"auth",
+								"signin"
+							]
+						},
+						"description": "Impersonate a Tableau User"
+					},
+					"response": []
+				},
+				{
+					"name": "Authenticate: Sign Out",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "4a61b283a6b68e9af141c0afb558bd53"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/auth/signout",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"auth",
+								"signout"
+							]
+						},
+						"description": "Sign Out of Tableau"
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "DataSources",
+			"item": [
+				{
+					"name": "Datasources: Query Datasources",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "{{auth-token}}"
+							}
+						],
+						"url": {
+							"raw": "http://{{IP}}/api/{{version}}/sites/{{site-id}}/datasources",
+							"protocol": "http",
+							"host": [
+								"{{IP}}"
+							],
+							"path": [
+								"api",
+								"{{version}}",
+								"sites",
+								"{{site-id}}",
+								"datasources"
+							]
+						},
+						"description": "Query all data sources in the site"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Query Datasource",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "2fc5cf7972d1c18841c137e09739c748"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad"
+							]
+						},
+						"description": "Query a specific data source"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Delete Datasource",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "2fc5cf7972d1c18841c137e09739c748"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/a2b9040d-224a-497f-9d89-65576e930317",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"a2b9040d-224a-497f-9d89-65576e930317"
+							]
+						},
+						"description": "Deletes the specified Datasource"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Download Datasource",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "2fc5cf7972d1c18841c137e09739c748"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"content"
+							]
+						},
+						"description": "Downloads the specified Datasource. WARNING: Don't try to download a tdsx with POSTman. It will crash. Try downloading a tds that doesn't have a local file attached with it.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Update DataSource",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "2fc5cf7972d1c18841c137e09739c748"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <datasource> \n     <project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\"/> \n </datasource> \n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad"
+							]
+						},
+						"description": "Update the DataSource's Project or Owner"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Update DataSource Connection",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "86e6bcbcdabb344afd5c45fb970be061"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<connection serverAddress=\"newAddr\" serverPort=\"5435\" userName=\"newUserName\" password=\"newPass\" />\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/connection",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"connection"
+							]
+						},
+						"description": "Modify the serverAddress, serverPort, userName, and/or password for a specific data connection on a specific datasources"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Query Datasource Connection",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "86e6bcbcdabb344afd5c45fb970be061"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/connection",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"connection"
+							]
+						},
+						"description": "Query DataSource connection information"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Publish DataSource",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "204fb1b75c8a936a75256eba5ce74b2d"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "request_payload",
+									"value": "<tsRequest><datasource name=\"restDataSource\" ><project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\" ></project></datasource></tsRequest>",
+									"type": "text"
+								},
+								{
+									"key": "tableau_datasource",
+									"type": "file",
+									"src": "CerebralOrders.tds"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources?overwrite=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources"
+							],
+							"query": [
+								{
+									"key": "overwrite",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Note: When you make this request with Postman the content-type will be multipart/form-data and you will get an error. The only way to get it to work is to copy the request in an application like Charles or Fiddler, edit the content-type to be multipart/mixed and then it will work."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "File Upload",
+			"item": [
+				{
+					"name": "Initiate File Upload",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f6efe73095b17946db37db1942b29da1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/fileUploads",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"fileUploads"
+							]
+						},
+						"description": "Starts a session to upload files to. Creates an empty file but subsequent calls to Append to File Upload add chunks of data to this file. This is used becaused http requests have a max size of 64mb. If your file is less than that, then it will be easier to just use Publish DataSource or Workbook. If it is bigger than that you will need to break it into chunks."
+					},
+					"response": []
+				},
+				{
+					"name": "Append to File Upload",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "adeb77db5667c23ec9f05cba872487c6"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "request_payload",
+									"value": "",
+									"type": "text"
+								},
+								{
+									"key": "tableau_file",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/fileUploads/22253:304D185973FF4C3F989854411508C4D0-0:0",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"fileUploads",
+								"22253:304D185973FF4C3F989854411508C4D0-0:0"
+							]
+						},
+						"description": "Note: When you make this request with Postman the content-type will be multipart/form-data and you will get an error. The only way to get it to work is to copy the request in an application like Charles or Fiddler, edit the content-type to be multipart/mixed and then it will work."
+					},
+					"response": []
+				},
+				{
+					"name": "Publish DataSource from Uploaded File",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "598d0a22fd282a761c1bf9e43ab0b010"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "request_payload",
+									"value": "<tsRequest><datasource name=\"chunkedDS\" ><connectionCredentials name=\"postgres\" password=\"admin\" embed=\"true\" ></connectionCredentials><project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\" ></project></datasource></tsRequest>",
+									"type": "text"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources?uploadSessionId=22253:3114A19C524B421B9E560F2D4BFCD822-0:0&datasourceType=tds",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources"
+							],
+							"query": [
+								{
+									"key": "uploadSessionId",
+									"value": "22253:3114A19C524B421B9E560F2D4BFCD822-0:0"
+								},
+								{
+									"key": "datasourceType",
+									"value": "tds"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Groups",
+			"item": [
+				{
+					"name": "Groups: Create Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<group name=\"myNewGroup\" />\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"groups",
+								""
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Groups: Query Groups",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"groups",
+								""
+							]
+						},
+						"description": "Returns the list of groups on the specific site, with optional parameters for paging large results"
+					},
+					"response": []
+				},
+				{
+					"name": "Groups: Update Group",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n  <group name=\"updatedGroupName\" />\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"groups",
+								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198"
+							]
+						},
+						"description": "-For Local Groups, allows changing the name of the group\n-For AD Groups, also syncs the groups."
+					},
+					"response": []
+				},
+				{
+					"name": "Projects: Query Projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"projects"
+							]
+						},
+						"description": "Returns a list of projects on the specified site, with optional parameters for specifying the paging of large results."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Permissions",
+			"item": [
+				{
+					"name": "Workbook Management: Add Permissions to Datasource",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n  <permissions> \n    <datasource id=\"73bc79fd-1641-4aa5-a126-fd2ed5d431ad\" />\n    <granteeCapabilities>\n      <user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"permissions"
+							]
+						},
+						"description": "Adds permissions to a specific data source."
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Permissions for a Datasource",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "17ac3462f6587768010c6babc5fcecec"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Permissions for a Project",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects/06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"projects",
+								"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Permissions for a Workbook",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+								"permissions"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Add Permissions to Workbook",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n  <permissions> \n    <workbook id=\"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017\" />\n    <granteeCapabilities>\n      <user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+								"permissions"
+							]
+						},
+						"description": "Adds permissions to a specific workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Add Permissions to Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n  <permissions> \n    <project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\" />\n    <granteeCapabilities>\n      <user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects/06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f/permissions",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"projects",
+								"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f",
+								"permissions"
+							]
+						},
+						"description": "Adds permissions to a specific project"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete Datasource Permission",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/permissions/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc/write/allow",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"datasources",
+								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"permissions",
+								"users",
+								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+								"write",
+								"allow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete Project Permission",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects/06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f/permissions/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc/write/allow",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"projects",
+								"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f",
+								"permissions",
+								"users",
+								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+								"write",
+								"allow"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete Workbook Permission",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": []
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017/permissions/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc/write/allow",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+								"permissions",
+								"users",
+								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+								"write",
+								"allow"
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Projects",
+			"item": [
+				{
+					"name": "Projects: Create Project",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "2fc5cf7972d1c18841c137e09739c748"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <project name=\"myNewProj\"  \n    description=\"A new project created with the REST API\" /> \n</tsRequest>\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"projects"
+							]
+						},
+						"description": "Create a new project in a specific site"
+					},
+					"response": []
+				},
+				{
+					"name": "Projects: Update Project",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "8987dee32b1e0e770c663f481c87680a"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <project description=\"A new project created with the REST API which has been UPDATED\" /> \n</tsRequest>\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/projects/f22ffc0e-74da-4c13-924f-f3d4b65d949b",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"projects",
+								"f22ffc0e-74da-4c13-924f-f3d4b65d949b"
+							]
+						},
+						"description": "Update an existing project in a specific site"
+					},
+					"response": []
+				},
+				{
+					"name": "Projects: Delete Project",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/projects/17ea7f56-c291-452f-80db-5ba9f00c5f55",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"projects",
+								"17ea7f56-c291-452f-80db-5ba9f00c5f55"
+							]
+						},
+						"description": "Delete a project"
+					},
+					"response": []
+				},
+				{
+					"name": "Projects: Query Projects",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161projects",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161projects"
+							]
+						},
+						"description": "Returns a list of all projects in the specified site."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Sites",
+			"item": [
+				{
+					"name": "Sites: Create Site",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "b2ed1871d12f1bcaa3bfaaf62c20b3cb"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"10\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites"
+							]
+						},
+						"description": "Create a new site"
+					},
+					"response": []
+				},
+				{
+					"name": "Sites: Query Site",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "e04792af3f3aa089633fd97c22c3a89b"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/default?key=name",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"default"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "name"
+								}
+							]
+						},
+						"description": "Query Tableau Site by Name"
+					},
+					"response": []
+				},
+				{
+					"name": "Sites: Site Information Including Storage",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "808cb958dfcb30837c16bf8adc5b2f80"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/Site7?key=contentUrl&includeUsage=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"Site7"
+							],
+							"query": [
+								{
+									"key": "key",
+									"value": "contentUrl"
+								},
+								{
+									"key": "includeUsage",
+									"value": "true"
+								}
+							]
+						},
+						"description": "View information (including storage info) about a site - similar to Query Site but with more stuff."
+					},
+					"response": []
+				},
+				{
+					"name": "Sites: Update Site",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"11\"\n    state=\"active\"\n    statusReason=\"Update\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/c174d512-a1fd-4ccd-b750-2f67b1cb877c",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"c174d512-a1fd-4ccd-b750-2f67b1cb877c"
+							]
+						},
+						"description": "Update an existing Site"
+					},
+					"response": []
+				},
+				{
+					"name": "Sites: Delete Site",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "72419341c7eec287318a091a9e6e80b9"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"10\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/0961be13-ecd5-492f-9f05-7a89e9638761",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"0961be13-ecd5-492f-9f05-7a89e9638761"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Sites: Query Sites",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								""
+							]
+						},
+						"description": "Returns a list of all sites on the server."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Users",
+			"item": [
+				{
+					"name": "User Management: Get Users On Site",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "b89e1d29f7ba35748bb8324d75e31e6d"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"users",
+								""
+							]
+						},
+						"description": "Get all users in site"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Add User to Site",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "7677daee5a0b03fac11ae1d63718348e"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<user name=\"someone\"\n    siteRole=\"Publisher\"\n    contentAdmin=\"false\"\n    supressGettingStarted=\"false\"/>\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"users",
+								""
+							]
+						},
+						"description": "Add user to a site"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Get Users on Site",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "e04792af3f3aa089633fd97c22c3a89b"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/b4126fe9-d7ee-4083-88f9-a5eea1f40416/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"b4126fe9-d7ee-4083-88f9-a5eea1f40416",
+								"users",
+								""
+							]
+						},
+						"description": "List all the users is a specific site"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Remove User from Site",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/c174d512-a1fd-4ccd-b750-2f67b1cb877c/users/81fc3070-5661-4f9d-a1f1-e68a677ba4f1",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"c174d512-a1fd-4ccd-b750-2f67b1cb877c",
+								"users",
+								"81fc3070-5661-4f9d-a1f1-e68a677ba4f1"
+							]
+						},
+						"description": "Remove a specific user from a site"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Query Workbooks for a User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "e04792af3f3aa089633fd97c22c3a89b"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/users/12d0eb42-1112-4df5-b60d-5dc18aaf3294/workbooks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"users",
+								"12d0eb42-1112-4df5-b60d-5dc18aaf3294",
+								"workbooks"
+							]
+						},
+						"description": "Get a list of workbooks owned by a specific user"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Add User to Group",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"groups",
+								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+								"users"
+							]
+						},
+						"description": "Adds a user to the specified group."
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Get Users in Group",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"groups",
+								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+								"users",
+								""
+							]
+						},
+						"description": "List all the users is a specific group"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Query User on Site",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"users",
+								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
+							]
+						},
+						"description": "Returns info about the specified user"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Remove User from Group",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"groups",
+								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+								"users",
+								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
+							]
+						},
+						"description": "Remove a specific user from a group"
+					},
+					"response": []
+				},
+				{
+					"name": "User Management: Update User",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "f2b0b23041f8519dc93389e0002306ed"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n <user fullName=\"AmyK\"\n    email=\"AmyK@Amy.com\"\n    password=\"AmyK\"\n    siteRole=\"PublisherInteractor\" />\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"users",
+								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
+							]
+						},
+						"description": "Modifies information about the specified user.\nIf Tableau Server is configured to use local authentication, you can update the user's name, email address, password, or site role.\nIf Tableau Server is configured to use Active Directory for authentication, you can change the user's display name (full name), email address, and site role. However, if you synchronize the user with Active Directory, the display name and email address will be overwritten with the information that's in Active Directory."
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Download Datasource",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/datasources",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"datasources"
+							]
+						},
+						"description": "Downloads a data source in .tds or .tdsx format."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		},
+		{
+			"name": "Workbooks",
+			"item": [
+				{
+					"name": "Workbook Management: Add Tags to a Workbook",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "8987dee32b1e0e770c663f481c87680a"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <workbook id=\"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef\">\n    <tags> \n      <tag label=\"Tagged by the REST API\" /> \n      <tag label=\"tag2\" />\n    </tags> \n  </workbook> \n</tsRequest>\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef"
+							]
+						},
+						"description": "Add one or more tags to a workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete Tag from a Workbook",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "8987dee32b1e0e770c663f481c87680a"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <workbook id=\"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef\">\n    <tags> \n      <tag label=\"Tagged by the REST API\" /> \n      <tag label=\"tag2\" />\n    </tags> \n  </workbook> \n</tsRequest>\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/tags/tag2",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"tags",
+								"tag2"
+							]
+						},
+						"description": "Delete a tag from the specified workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Workbook",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "b89e1d29f7ba35748bb8324d75e31e6d"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017"
+							]
+						},
+						"description": "Get the details of a specific workbok"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Workbook with a Preview Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017?previewImage=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017"
+							],
+							"query": [
+								{
+									"key": "previewImage",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Get the details of a specific workbook, including a preview image."
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Add Workbook to Favorites",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "be96cb5e71e471397b38443aea16a457"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <favorite label=\"I was Favorited by REST\"> \n    <workbook id=\"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef\" /> \n  </favorite> \n</tsRequest>\n\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/favorites/fd0f2b7e-6594-4105-a179-128b30d42c79",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"favorites",
+								"fd0f2b7e-6594-4105-a179-128b30d42c79"
+							]
+						},
+						"description": "Add a workbook to the favorites list of a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete Workbook from Favorites",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "be96cb5e71e471397b38443aea16a457"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/favorites/fd0f2b7e-6594-4105-a179-128b30d42c79/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"favorites",
+								"fd0f2b7e-6594-4105-a179-128b30d42c79",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef"
+							]
+						},
+						"description": "Delete a workbook to the favorites list of a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query View with Preview Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "be96cb5e71e471397b38443aea16a457"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/views/f01d86a6-89ec-11e3-a04c-7f2aac50fa01/previewImage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"views",
+								"f01d86a6-89ec-11e3-a04c-7f2aac50fa01",
+								"previewImage"
+							]
+						},
+						"description": "Get a preview image of a workbook's view"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Views for a Workbook",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "b89e1d29f7ba35748bb8324d75e31e6d"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/views/",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"views",
+								""
+							]
+						},
+						"description": "Get a list of views in a Workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Views for a Workbook with Usage Statistics",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "be96cb5e71e471397b38443aea16a457"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/views?includeUsageStatistics=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"views"
+							],
+							"query": [
+								{
+									"key": "includeUsageStatistics",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Get a list of views in a Workbook, including view counts"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Workbook Preview Image",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "808cb958dfcb30837c16bf8adc5b2f80"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/previewImage",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"workbooks",
+								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"previewImage"
+							]
+						},
+						"description": "Get the thumbnail for a specific workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Workbooks for User",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/5a5f8edb-c8d1-4fd3-971c-0fb159e07f19/workbooks",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"users",
+								"5a5f8edb-c8d1-4fd3-971c-0fb159e07f19",
+								"workbooks"
+							]
+						},
+						"description": "Query workbooks that the specified user has read capabilities for"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Add View to Favorites",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "b89e1d29f7ba35748bb8324d75e31e6d"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <favorite label=\"I was Favorited by REST\"> \n    <view id=\"ae7a0f32-7faa-4e01-86bd-803e18ca7012\" /> \n  </favorite> \n</tsRequest>\n\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/favorites/5a5f8edb-c8d1-4fd3-971c-0fb159e07f19",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"favorites",
+								"5a5f8edb-c8d1-4fd3-971c-0fb159e07f19"
+							]
+						},
+						"description": "Add a view to the favorites list of a user"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete View from Favorites",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "ab55fe9cfacf85ccf034295c439aa0c1"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "\n\n"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/favorites/5a5f8edb-c8d1-4fd3-971c-0fb159e07f19/views/ae7a0f32-7faa-4e01-86bd-803e18ca7012",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"favorites",
+								"5a5f8edb-c8d1-4fd3-971c-0fb159e07f19",
+								"views",
+								"ae7a0f32-7faa-4e01-86bd-803e18ca7012"
+							]
+						},
+						"description": "Deletes a view from the user's favorites list."
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Delete Workbook",
+					"request": {
+						"method": "DELETE",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017"
+							]
+						}
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Download Workbook",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "3c362ceb82dc8deb54046f258f956513"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/798ce163-c31d-4c3e-a44a-4d534ea7294d/content",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"798ce163-c31d-4c3e-a44a-4d534ea7294d",
+								"content"
+							]
+						},
+						"description": "Downloads the specified Workbook. WARNING: Don't try to download a twbx with POSTman. It will crash. Try downloading a tds that doesn't have a local file attached with it.\n"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Query Workbook Connections",
+					"request": {
+						"method": "GET",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "86e6bcbcdabb344afd5c45fb970be061"
+							}
+						],
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8/connections",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
+								"connections"
+							]
+						},
+						"description": "Lists the data connections for a specific workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbook Management: Update Workbook Connections",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "86e6bcbcdabb344afd5c45fb970be061"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest>\n\t<connection serverAddress=\"newAddr\" serverPort=\"5435\" userName=\"newUserName\" password=\"newPass\" />\n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8/connections/3c52ec95-01ff-4043-b39b-0f54728fb76a",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
+								"connections",
+								"3c52ec95-01ff-4043-b39b-0f54728fb76a"
+							]
+						},
+						"description": "Modify the serverAddress, serverPort, userName, and/or password for a specific data connection on a specific workbook"
+					},
+					"response": []
+				},
+				{
+					"name": "Workbooks: Update Workbook",
+					"request": {
+						"method": "PUT",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "86e6bcbcdabb344afd5c45fb970be061"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "<tsRequest> \n  <workbook> \n     <project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\"/> \n     <owner id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n </workbook> \n</tsRequest>"
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks",
+								"c2f3b70c-950d-420f-a1e8-2c13607ae4e8"
+							]
+						},
+						"description": "Update the Workbook's Project or Owner"
+					},
+					"response": []
+				},
+				{
+					"name": "Datasources: Publish Workbook",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "X-Tableau-Auth",
+								"value": "204fb1b75c8a936a75256eba5ce74b2d"
+							}
+						],
+						"body": {
+							"mode": "formdata",
+							"formdata": [
+								{
+									"key": "request_payload",
+									"value": "<tsRequest><workbook name=\"restWorkbook\" ><project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\" ></project></workbook></tsRequest>",
+									"type": "text"
+								},
+								{
+									"key": "tableau_workbook",
+									"value": "",
+									"type": "file"
+								}
+							]
+						},
+						"url": {
+							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks?overwrite=true",
+							"protocol": "http",
+							"host": [
+								"localhost"
+							],
+							"path": [
+								"api",
+								"2.0",
+								"sites",
+								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"workbooks"
+							],
+							"query": [
+								{
+									"key": "overwrite",
+									"value": "true"
+								}
+							]
+						},
+						"description": "Note: When you make this request with Postman the content-type will be multipart/form-data and you will get an error. The only way to get it to work is to copy the request in an application like Charles or Fiddler, edit the content-type to be multipart/mixed and then it will work."
+					},
+					"response": []
+				}
+			],
+			"protocolProfileBehavior": {}
+		}
+	],
+	"protocolProfileBehavior": {}
+}
