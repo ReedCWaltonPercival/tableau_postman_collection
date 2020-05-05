@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "6e5a95f1-0910-4334-bc0e-de16eac75153",
+		"_postman_id": "837fb52c-fb19-4120-a7cd-0575f140d434",
 		"name": "Tableau REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -1054,7 +1054,7 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"10\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
+							"raw": "<tsRequest>\n\t<site name=\"sample_site\"\n    contentUrl=\"sampleSite\"\n    />\n</tsRequest>"
 						},
 						"url": {
 							"raw": "http://{{ts_hostname}}/api/{{version}}/sites",
@@ -1233,7 +1233,7 @@
 			"name": "Users",
 			"item": [
 				{
-					"name": "User Management: Get Users On Site",
+					"name": "Get Users On Site",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1262,7 +1262,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Add User to Site",
+					"name": "Add User to Site",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1295,7 +1295,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Get Users on Site",
+					"name": "Get Users on Site",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1305,7 +1305,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/b4126fe9-d7ee-4083-88f9-a5eea1f40416/users/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1314,7 +1314,7 @@
 								"api",
 								"{{version}}",
 								"sites",
-								"b4126fe9-d7ee-4083-88f9-a5eea1f40416",
+								"{{site-id}}",
 								"users",
 								""
 							]
@@ -1324,7 +1324,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Remove User from Site",
+					"name": "Remove User from Site",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -1338,7 +1338,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/c174d512-a1fd-4ccd-b750-2f67b1cb877c/users/81fc3070-5661-4f9d-a1f1-e68a677ba4f1",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/{{user-id}}",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1347,9 +1347,9 @@
 								"api",
 								"{{version}}",
 								"sites",
-								"c174d512-a1fd-4ccd-b750-2f67b1cb877c",
+								"{{site-id}}",
 								"users",
-								"81fc3070-5661-4f9d-a1f1-e68a677ba4f1"
+								"{{user-id}}"
 							]
 						},
 						"description": "Remove a specific user from a site"
@@ -1357,7 +1357,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Query Workbooks for a User",
+					"name": "Query Workbooks for a User",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1367,7 +1367,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/94f96a34-64e7-49f2-8624-e77426bbd490/users/12d0eb42-1112-4df5-b60d-5dc18aaf3294/workbooks",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/{{user-id}}/workbooks",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1376,9 +1376,9 @@
 								"api",
 								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"users",
-								"12d0eb42-1112-4df5-b60d-5dc18aaf3294",
+								"{{user-id}}",
 								"workbooks"
 							]
 						},
@@ -1387,7 +1387,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Add User to Group",
+					"name": "Add User to Group",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -1398,10 +1398,10 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n\t<user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n</tsRequest>"
+							"raw": "<tsRequest>\n\t<user id=\"{{user-id}}\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/{{group-id}}/users",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1412,7 +1412,7 @@
 								"sites",
 								"{{site-id}}",
 								"groups",
-								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+								"{{group-id}}",
 								"users"
 							]
 						},
@@ -1421,7 +1421,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Get Users in Group",
+					"name": "Get Users in Group",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1431,7 +1431,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/{{group-id}}/users/",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1442,7 +1442,7 @@
 								"sites",
 								"{{site-id}}",
 								"groups",
-								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+								"{{group-id}}",
 								"users",
 								""
 							]
@@ -1452,7 +1452,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Query User on Site",
+					"name": "Query User on Site",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1462,7 +1462,7 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/{{user-id}}",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1473,7 +1473,7 @@
 								"sites",
 								"{{site-id}}",
 								"users",
-								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
+								"{{user-id}}"
 							]
 						},
 						"description": "Returns info about the specified user"
@@ -1481,7 +1481,7 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Remove User from Group",
+					"name": "Remove User from Group",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -1495,7 +1495,7 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/{{group-id}}/users/{{user-id}}",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1506,9 +1506,9 @@
 								"sites",
 								"{{site-id}}",
 								"groups",
-								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+								"{{group-id}}",
 								"users",
-								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
+								"{{user-id}}"
 							]
 						},
 						"description": "Remove a specific user from a group"
@@ -1516,13 +1516,13 @@
 					"response": []
 				},
 				{
-					"name": "User Management: Update User",
+					"name": "Update User",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1530,7 +1530,7 @@
 							"raw": "<tsRequest>\n <user fullName=\"AmyK\"\n    email=\"AmyK@Amy.com\"\n    password=\"AmyK\"\n    siteRole=\"PublisherInteractor\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/{{user-id}}",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1541,7 +1541,7 @@
 								"sites",
 								"{{site-id}}",
 								"users",
-								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
+								"{{user-id}}"
 							]
 						},
 						"description": "Modifies information about the specified user.\nIf Tableau Server is configured to use local authentication, you can update the user's name, email address, password, or site role.\nIf Tableau Server is configured to use Active Directory for authentication, you can change the user's display name (full name), email address, and site role. However, if you synchronize the user with Active Directory, the display name and email address will be overwritten with the information that's in Active Directory."
@@ -1555,11 +1555,11 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/94f96a34-64e7-49f2-8624-e77426bbd490/datasources",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}",
 							"protocol": "http",
 							"host": [
 								"{{ts_hostname}}"
@@ -1568,8 +1568,7 @@
 								"api",
 								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
-								"datasources"
+								"{{site-id}}"
 							]
 						},
 						"description": "Downloads a data source in .tds or .tdsx format."
