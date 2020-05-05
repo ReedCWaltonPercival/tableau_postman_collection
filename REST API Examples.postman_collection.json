@@ -1,6 +1,6 @@
 {
 	"info": {
-		"_postman_id": "2c6dadc9-85e2-ed41-b9c7-48c3544e3a80",
+		"_postman_id": "6e5a95f1-0910-4334-bc0e-de16eac75153",
 		"name": "Tableau REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
@@ -9,23 +9,23 @@
 			"name": "Authenticate",
 			"item": [
 				{
-					"name": "Authenticate: Sign-in (As an Admin)",
+					"name": "Sign-in (As an Admin)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n  <credentials name=\"Admin\" password=\"pass\">\n      <site contentUrl=\"rest\" />\n      </credentials>\n</tsRequest>"
+							"raw": "<tsRequest>\n  <credentials name=\"{{ts_admin_name}}\" password=\"{{ts_admin_pass}}\">\n      <site contentUrl=\"\" />\n      </credentials>\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/auth/signin",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/auth/signin",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"auth",
 								"signin"
 							]
@@ -34,19 +34,19 @@
 					"response": []
 				},
 				{
-					"name": "Authenticate: Sign in (As Tableau User)",
+					"name": "Sign in (As Tableau User)",
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n\t<credentials name=\"Admin\" password=\"pass\">\n    \t<site contentUrl=\"\" />\n        <user id=\"\"/>\n      </credentials>\n</tsRequest>"
+							"raw": "<tsRequest>\n\t<credentials name=\"Admin\" password=\"pass\">\n    \t<site contentUrl=\"{{site-id}}\" />\n        <user id=\"{{user-id}}\"/>\n      </credentials>\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://{{IP}}/api/{{version}}/auth/signin",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/auth/signin",
 							"protocol": "http",
 							"host": [
-								"{{IP}}"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
@@ -60,13 +60,13 @@
 					"response": []
 				},
 				{
-					"name": "Authenticate: Sign Out",
+					"name": "Sign Out",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "4a61b283a6b68e9af141c0afb558bd53"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -74,14 +74,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/auth/signout",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/auth/signout",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"auth",
 								"signout"
 							]
@@ -97,7 +97,7 @@
 			"name": "DataSources",
 			"item": [
 				{
-					"name": "Datasources: Query Datasources",
+					"name": "Query Datasources",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -107,10 +107,10 @@
 							}
 						],
 						"url": {
-							"raw": "http://{{IP}}/api/{{version}}/sites/{{site-id}}/datasources",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources",
 							"protocol": "http",
 							"host": [
-								"{{IP}}"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
@@ -125,28 +125,28 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Query Datasource",
+					"name": "Query Datasource",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "2fc5cf7972d1c18841c137e09739c748"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad"
+								"{{datasource-id}}"
 							]
 						},
 						"description": "Query a specific data source"
@@ -154,13 +154,13 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Delete Datasource",
+					"name": "Delete Datasource",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "2fc5cf7972d1c18841c137e09739c748"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -168,18 +168,18 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/a2b9040d-224a-497f-9d89-65576e930317",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"a2b9040d-224a-497f-9d89-65576e930317"
+								"{{datasource-id}}"
 							]
 						},
 						"description": "Deletes the specified Datasource"
@@ -187,28 +187,28 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Download Datasource",
+					"name": "Download Datasource",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "2fc5cf7972d1c18841c137e09739c748"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/content",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}/content",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"{{datasource-id}}",
 								"content"
 							]
 						},
@@ -217,32 +217,32 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Update DataSource",
+					"name": "Update DataSource",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "2fc5cf7972d1c18841c137e09739c748"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest> \n  <datasource> \n     <project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\"/> \n </datasource> \n</tsRequest>"
+							"raw": "<tsRequest> \n  <datasource> \n     <project id=\"{{project-id}}\"/> \n </datasource> \n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad"
+								"{{datasource-id}}"
 							]
 						},
 						"description": "Update the DataSource's Project or Owner"
@@ -250,13 +250,13 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Update DataSource Connection",
+					"name": "Update DataSource Connection",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "86e6bcbcdabb344afd5c45fb970be061"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -264,18 +264,18 @@
 							"raw": "<tsRequest>\n\t<connection serverAddress=\"newAddr\" serverPort=\"5435\" userName=\"newUserName\" password=\"newPass\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/connection",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}/connection",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"{{datasource-id}}",
 								"connection"
 							]
 						},
@@ -284,28 +284,28 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Query Datasource Connection",
+					"name": "Query Datasource Connection",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "86e6bcbcdabb344afd5c45fb970be061"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/connection",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}/connection",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"{{datasource-id}}",
 								"connection"
 							]
 						},
@@ -314,13 +314,13 @@
 					"response": []
 				},
 				{
-					"name": "Datasources: Publish DataSource",
+					"name": "Publish DataSource",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "204fb1b75c8a936a75256eba5ce74b2d"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -339,16 +339,16 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources?overwrite=true",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources?overwrite=true",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources"
 							],
 							"query": [
@@ -383,16 +383,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/fileUploads",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/fileUploads",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"fileUploads"
 							]
 						},
@@ -407,7 +407,7 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "adeb77db5667c23ec9f05cba872487c6"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -415,29 +415,29 @@
 							"formdata": [
 								{
 									"key": "request_payload",
-									"value": "",
+									"value": "<tsRequest><workbook name=\"test_wb\" ></workbook></tsRequest>",
 									"type": "text"
 								},
 								{
 									"key": "tableau_file",
-									"value": "",
-									"type": "file"
+									"type": "file",
+									"src": "/C:/Users/rwalton/PycharmProjects/workbench/notebooks/tableau_workbooks/CompanyEast/Sales.twb"
 								}
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/fileUploads/22253:304D185973FF4C3F989854411508C4D0-0:0",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/fileUploads/{{file-upload-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"fileUploads",
-								"22253:304D185973FF4C3F989854411508C4D0-0:0"
+								"{{file-upload-id}}"
 							]
 						},
 						"description": "Note: When you make this request with Postman the content-type will be multipart/form-data and you will get an error. The only way to get it to work is to copy the request in an application like Charles or Fiddler, edit the content-type to be multipart/mixed and then it will work."
@@ -451,7 +451,7 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "598d0a22fd282a761c1bf9e43ab0b010"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -465,22 +465,22 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources?uploadSessionId=22253:3114A19C524B421B9E560F2D4BFCD822-0:0&datasourceType=tds",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources?{{file-upload-id}}&datasourceType=tds",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources"
 							],
 							"query": [
 								{
-									"key": "uploadSessionId",
-									"value": "22253:3114A19C524B421B9E560F2D4BFCD822-0:0"
+									"key": "{{file-upload-id}}",
+									"value": null
 								},
 								{
 									"key": "datasourceType",
@@ -498,7 +498,7 @@
 			"name": "Groups",
 			"item": [
 				{
-					"name": "Groups: Create Group",
+					"name": "Create Group",
 					"request": {
 						"method": "POST",
 						"header": [
@@ -512,16 +512,16 @@
 							"raw": "<tsRequest>\n\t<group name=\"myNewGroup\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"groups",
 								""
 							]
@@ -530,7 +530,7 @@
 					"response": []
 				},
 				{
-					"name": "Groups: Query Groups",
+					"name": "Query Groups",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -540,16 +540,16 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"groups",
 								""
 							]
@@ -559,13 +559,13 @@
 					"response": []
 				},
 				{
-					"name": "Groups: Update Group",
+					"name": "Update Group",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -573,49 +573,21 @@
 							"raw": "<tsRequest>\n  <group name=\"updatedGroupName\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/{{group-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"groups",
-								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198"
+								"{{group-id}}"
 							]
 						},
 						"description": "-For Local Groups, allows changing the name of the group\n-For AD Groups, also syncs the groups."
-					},
-					"response": []
-				},
-				{
-					"name": "Projects: Query Projects",
-					"request": {
-						"method": "GET",
-						"header": [
-							{
-								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
-							}
-						],
-						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects",
-							"protocol": "http",
-							"host": [
-								"localhost"
-							],
-							"path": [
-								"api",
-								"2.0",
-								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
-								"projects"
-							]
-						},
-						"description": "Returns a list of projects on the specified site, with optional parameters for specifying the paging of large results."
 					},
 					"response": []
 				}
@@ -626,32 +598,32 @@
 			"name": "Permissions",
 			"item": [
 				{
-					"name": "Workbook Management: Add Permissions to Datasource",
+					"name": "Add Permissions to Datasource",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n  <permissions> \n    <datasource id=\"73bc79fd-1641-4aa5-a126-fd2ed5d431ad\" />\n    <granteeCapabilities>\n      <user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
+							"raw": "<tsRequest>\n  <permissions> \n    <datasource id=\"{{datasource-id}}\" />\n    <granteeCapabilities>\n      <user id=\"{{user-id}}\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/permissions",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"{{datasource-id}}",
 								"permissions"
 							]
 						},
@@ -660,28 +632,35 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Permissions for a Datasource",
+					"name": "Query Permissions for a Datasource",
+					"protocolProfileBehavior": {
+						"disableBodyPruning": true
+					},
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "17ac3462f6587768010c6babc5fcecec"
+								"value": "{{auth-token}}"
 							}
 						],
+						"body": {
+							"mode": "raw",
+							"raw": ""
+						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/permissions",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"{{datasource-id}}",
 								"permissions"
 							]
 						}
@@ -689,28 +668,28 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Permissions for a Project",
+					"name": "Query Permissions for a Project",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects/06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f/permissions",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/projects/{{project-id}}/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"projects",
-								"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f",
+								"{{project-id}}",
 								"permissions"
 							]
 						}
@@ -718,28 +697,28 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Permissions for a Workbook",
+					"name": "Query Permissions for a Workbook",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017/permissions",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+								"{{workbook-id}}",
 								"permissions"
 							]
 						}
@@ -747,32 +726,32 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Add Permissions to Workbook",
+					"name": "Add Permissions to Workbook",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n  <permissions> \n    <workbook id=\"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017\" />\n    <granteeCapabilities>\n      <user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
+							"raw": "<tsRequest>\n  <permissions> \n    <workbook id=\"{{workbook-id}}\" />\n    <granteeCapabilities>\n      <user id=\"{{user-id}}\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017/permissions",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+								"{{workbook-id}}",
 								"permissions"
 							]
 						},
@@ -781,32 +760,32 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Add Permissions to Project",
+					"name": "Add Permissions to Project",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n  <permissions> \n    <project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\" />\n    <granteeCapabilities>\n      <user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
+							"raw": "<tsRequest>\n  <permissions> \n    <project id=\"{{project-id}}\" />\n    <granteeCapabilities>\n      <user id=\"{{user-id}}\" />\n      <capabilities>\n        <capability name=\"write\" mode=\"allow\" />\n      </capabilities>\n    </granteeCapabilities>\n  </permissions>\n</tsRequest>\t"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects/06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f/permissions",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/projects/{{project-id}}/permissions",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"projects",
-								"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f",
+								"{{project-id}}",
 								"permissions"
 							]
 						},
@@ -815,13 +794,14 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete Datasource Permission",
+					"name": "Delete Datasource Permission",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}",
+								"disabled": true
 							}
 						],
 						"body": {
@@ -829,21 +809,21 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/datasources/73bc79fd-1641-4aa5-a126-fd2ed5d431ad/permissions/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc/write/allow",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/datasources/{{datasource-id}}/permissions/users/{{user-id}}/write/allow",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"datasources",
-								"73bc79fd-1641-4aa5-a126-fd2ed5d431ad",
+								"{{datasource-id}}",
 								"permissions",
 								"users",
-								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+								"{{user-id}}",
 								"write",
 								"allow"
 							]
@@ -852,13 +832,13 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete Project Permission",
+					"name": "Delete Project Permission",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -866,21 +846,21 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects/06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f/permissions/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc/write/allow",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/projects/{{project-id}}/permissions/users/{{user-id}}/write/allow",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"projects",
-								"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f",
+								"{{project-id}}",
 								"permissions",
 								"users",
-								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+								"{{user-id}}",
 								"write",
 								"allow"
 							]
@@ -889,7 +869,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete Workbook Permission",
+					"name": "Delete Workbook Permission",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -903,21 +883,21 @@
 							"formdata": []
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017/permissions/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc/write/allow",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/permissions/users/{{user-id}}/write/allow",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+								"{{workbook-id}}",
 								"permissions",
 								"users",
-								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+								"{{user-id}}",
 								"write",
 								"allow"
 							]
@@ -932,13 +912,13 @@
 			"name": "Projects",
 			"item": [
 				{
-					"name": "Projects: Create Project",
+					"name": "Create Project",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "2fc5cf7972d1c18841c137e09739c748"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -946,16 +926,16 @@
 							"raw": "<tsRequest> \n  <project name=\"myNewProj\"  \n    description=\"A new project created with the REST API\" /> \n</tsRequest>\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/projects",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/projects",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"projects"
 							]
 						},
@@ -964,13 +944,13 @@
 					"response": []
 				},
 				{
-					"name": "Projects: Update Project",
+					"name": "Update Project",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "8987dee32b1e0e770c663f481c87680a"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -978,18 +958,18 @@
 							"raw": "<tsRequest> \n  <project description=\"A new project created with the REST API which has been UPDATED\" /> \n</tsRequest>\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/projects/f22ffc0e-74da-4c13-924f-f3d4b65d949b",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/projects/{{project-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"projects",
-								"f22ffc0e-74da-4c13-924f-f3d4b65d949b"
+								"{{project-id}}"
 							]
 						},
 						"description": "Update an existing project in a specific site"
@@ -997,13 +977,13 @@
 					"response": []
 				},
 				{
-					"name": "Projects: Delete Project",
+					"name": "Delete Project",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1011,18 +991,18 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/projects/17ea7f56-c291-452f-80db-5ba9f00c5f55",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/projects/{{project-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"projects",
-								"17ea7f56-c291-452f-80db-5ba9f00c5f55"
+								"{{project-id}}"
 							]
 						},
 						"description": "Delete a project"
@@ -1030,26 +1010,26 @@
 					"response": []
 				},
 				{
-					"name": "Projects: Query Projects",
+					"name": "Query Projects",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161projects",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}projects",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161projects"
+								"{{site-id}}projects"
 							]
 						},
 						"description": "Returns a list of all projects in the specified site."
@@ -1063,13 +1043,13 @@
 			"name": "Sites",
 			"item": [
 				{
-					"name": "Sites: Create Site",
+					"name": "Create Site",
 					"request": {
 						"method": "POST",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "b2ed1871d12f1bcaa3bfaaf62c20b3cb"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1077,14 +1057,14 @@
 							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"10\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites"
 							]
 						},
@@ -1093,24 +1073,24 @@
 					"response": []
 				},
 				{
-					"name": "Sites: Query Site",
+					"name": "Query Site",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "e04792af3f3aa089633fd97c22c3a89b"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/default?key=name",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/default?key=name",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								"default"
 							],
@@ -1126,32 +1106,28 @@
 					"response": []
 				},
 				{
-					"name": "Sites: Site Information Including Storage",
+					"name": "Site Information Including Storage",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "808cb958dfcb30837c16bf8adc5b2f80"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/Site7?key=contentUrl&includeUsage=true",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}?includeUsage=true",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"Site7"
+								"{{site-id}}"
 							],
 							"query": [
-								{
-									"key": "key",
-									"value": "contentUrl"
-								},
 								{
 									"key": "includeUsage",
 									"value": "true"
@@ -1163,13 +1139,13 @@
 					"response": []
 				},
 				{
-					"name": "Sites: Update Site",
+					"name": "Update Site",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1177,16 +1153,16 @@
 							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"11\"\n    state=\"active\"\n    statusReason=\"Update\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/c174d512-a1fd-4ccd-b750-2f67b1cb877c",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"c174d512-a1fd-4ccd-b750-2f67b1cb877c"
+								"{{site-id}}"
 							]
 						},
 						"description": "Update an existing Site"
@@ -1194,13 +1170,13 @@
 					"response": []
 				},
 				{
-					"name": "Sites: Delete Site",
+					"name": "Delete Site",
 					"request": {
 						"method": "DELETE",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "72419341c7eec287318a091a9e6e80b9"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1208,16 +1184,16 @@
 							"raw": "<tsRequest>\n\t<site name=\"russell\"\n    contentUrl=\"russellSite\"\n    adminMode=\"ContentAndUsers\"\n    userQuota=\"10\"\n    storageQuota=\"40\"\n  disableSubscriptions=\"false\"/>\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/0961be13-ecd5-492f-9f05-7a89e9638761",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"0961be13-ecd5-492f-9f05-7a89e9638761"
+								"{{site-id}}"
 							]
 						}
 					},
@@ -1230,18 +1206,18 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								""
 							]
@@ -1263,20 +1239,20 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "b89e1d29f7ba35748bb8324d75e31e6d"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"users",
 								""
 							]
@@ -1292,24 +1268,24 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "7677daee5a0b03fac11ae1d63718348e"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n\t<user name=\"someone\"\n    siteRole=\"Publisher\"\n    contentAdmin=\"false\"\n    supressGettingStarted=\"false\"/>\n</tsRequest>"
+							"raw": "<tsRequest>\n\t<user name=\"Alice\"\n    siteRole=\"Explorer\"\n    />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"users",
 								""
 							]
@@ -1325,18 +1301,18 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "e04792af3f3aa089633fd97c22c3a89b"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/b4126fe9-d7ee-4083-88f9-a5eea1f40416/users/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/b4126fe9-d7ee-4083-88f9-a5eea1f40416/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								"b4126fe9-d7ee-4083-88f9-a5eea1f40416",
 								"users",
@@ -1354,7 +1330,7 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "00ce5ffb487863ec3f29c1b0e2da0144"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1362,14 +1338,14 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/c174d512-a1fd-4ccd-b750-2f67b1cb877c/users/81fc3070-5661-4f9d-a1f1-e68a677ba4f1",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/c174d512-a1fd-4ccd-b750-2f67b1cb877c/users/81fc3070-5661-4f9d-a1f1-e68a677ba4f1",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								"c174d512-a1fd-4ccd-b750-2f67b1cb877c",
 								"users",
@@ -1387,18 +1363,18 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "e04792af3f3aa089633fd97c22c3a89b"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/users/12d0eb42-1112-4df5-b60d-5dc18aaf3294/workbooks",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/94f96a34-64e7-49f2-8624-e77426bbd490/users/12d0eb42-1112-4df5-b60d-5dc18aaf3294/workbooks",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								"94f96a34-64e7-49f2-8624-e77426bbd490",
 								"users",
@@ -1417,7 +1393,7 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1425,16 +1401,16 @@
 							"raw": "<tsRequest>\n\t<user id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"groups",
 								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
 								"users"
@@ -1451,20 +1427,20 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"groups",
 								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
 								"users",
@@ -1482,20 +1458,20 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"users",
 								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
 							]
@@ -1511,7 +1487,7 @@
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "f2b0b23041f8519dc93389e0002306ed"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1519,16 +1495,16 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/groups/fdb6d216-69d3-4d0d-a51c-79d95dc3b198/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"groups",
 								"fdb6d216-69d3-4d0d-a51c-79d95dc3b198",
 								"users",
@@ -1554,16 +1530,16 @@
 							"raw": "<tsRequest>\n <user fullName=\"AmyK\"\n    email=\"AmyK@Amy.com\"\n    password=\"AmyK\"\n    siteRole=\"PublisherInteractor\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"users",
 								"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc"
 							]
@@ -1583,14 +1559,14 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/datasources",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/94f96a34-64e7-49f2-8624-e77426bbd490/datasources",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								"94f96a34-64e7-49f2-8624-e77426bbd490",
 								"datasources"
@@ -1607,13 +1583,13 @@
 			"name": "Workbooks",
 			"item": [
 				{
-					"name": "Workbook Management: Add Tags to a Workbook",
+					"name": "Add Tags to a Workbook",
 					"request": {
 						"method": "PUT",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "8987dee32b1e0e770c663f481c87680a"
+								"value": "{{auth-token}}"
 							}
 						],
 						"body": {
@@ -1621,14 +1597,14 @@
 							"raw": "<tsRequest> \n  <workbook id=\"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef\">\n    <tags> \n      <tag label=\"Tagged by the REST API\" /> \n      <tag label=\"tag2\" />\n    </tags> \n  </workbook> \n</tsRequest>\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
 								"94f96a34-64e7-49f2-8624-e77426bbd490",
 								"workbooks",
@@ -1640,7 +1616,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete Tag from a Workbook",
+					"name": "Delete Tag from a Workbook",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -1654,18 +1630,18 @@
 							"raw": "<tsRequest> \n  <workbook id=\"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef\">\n    <tags> \n      <tag label=\"Tagged by the REST API\" /> \n      <tag label=\"tag2\" />\n    </tags> \n  </workbook> \n</tsRequest>\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/tags/tag2",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/tags/tag2",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"workbooks",
-								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"{{workbook-id}}",
 								"tags",
 								"tag2"
 							]
@@ -1675,28 +1651,28 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Workbook",
+					"name": "Query Workbook",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "b89e1d29f7ba35748bb8324d75e31e6d"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbok-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017"
+								"{{workbok-id}}"
 							]
 						},
 						"description": "Get the details of a specific workbok"
@@ -1704,28 +1680,28 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Workbook with a Preview Image",
+					"name": "Query Workbook with a Preview Image",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "3c362ceb82dc8deb54046f258f956513"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017?previewImage=true",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}?previewImage=true",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017"
+								"{{workbook-id}}"
 							],
 							"query": [
 								{
@@ -1739,7 +1715,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Add Workbook to Favorites",
+					"name": "Add Workbook to Favorites",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1750,21 +1726,21 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest> \n  <favorite label=\"I was Favorited by REST\"> \n    <workbook id=\"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef\" /> \n  </favorite> \n</tsRequest>\n\n"
+							"raw": "<tsRequest> \n  <favorite label=\"I was Favorited by REST\"> \n    <workbook id=\"{{workbook-id}}\" /> \n  </favorite> \n</tsRequest>\n\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/favorites/fd0f2b7e-6594-4105-a179-128b30d42c79",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/favorites/{{workbook-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"favorites",
-								"fd0f2b7e-6594-4105-a179-128b30d42c79"
+								"{{workbook-id}}"
 							]
 						},
 						"description": "Add a workbook to the favorites list of a user"
@@ -1772,7 +1748,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete Workbook from Favorites",
+					"name": "Delete Workbook from Favorites",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -1786,20 +1762,20 @@
 							"raw": "\n\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/favorites/fd0f2b7e-6594-4105-a179-128b30d42c79/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/favorites/{{user-id}}/workbooks/{{workbook-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"favorites",
-								"fd0f2b7e-6594-4105-a179-128b30d42c79",
+								"{{user-id}}",
 								"workbooks",
-								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef"
+								"{{workbook-id}}"
 							]
 						},
 						"description": "Delete a workbook to the favorites list of a user"
@@ -1807,7 +1783,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query View with Preview Image",
+					"name": "Query View with Preview Image",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1817,20 +1793,20 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/views/f01d86a6-89ec-11e3-a04c-7f2aac50fa01/previewImage",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/views/{{view-id}}/previewImage",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"workbooks",
-								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"{{workbook-id}}",
 								"views",
-								"f01d86a6-89ec-11e3-a04c-7f2aac50fa01",
+								"{{view-id}}",
 								"previewImage"
 							]
 						},
@@ -1839,7 +1815,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Views for a Workbook",
+					"name": "Query Views for a Workbook",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1849,18 +1825,18 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/views/",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/views/",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"{{workbook-id}}",
 								"views",
 								""
 							]
@@ -1870,7 +1846,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Views for a Workbook with Usage Statistics",
+					"name": "Query Views for a Workbook with Usage Statistics",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1880,18 +1856,18 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/views?includeUsageStatistics=true",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/views?includeUsageStatistics=true",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
+								"{{site-id}}",
 								"workbooks",
-								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"{{workbook-id}}",
 								"views"
 							],
 							"query": [
@@ -1906,7 +1882,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Workbook Preview Image",
+					"name": "Query Workbook Preview Image",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1916,18 +1892,17 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/94f96a34-64e7-49f2-8624-e77426bbd490/workbooks/efbbe45a-89ec-11e3-8e3a-1bae9933f8ef/previewImage",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/{{workbook-id}}/previewImage",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"94f96a34-64e7-49f2-8624-e77426bbd490",
-								"workbooks",
-								"efbbe45a-89ec-11e3-8e3a-1bae9933f8ef",
+								"{{site-id}}",
+								"{{workbook-id}}",
 								"previewImage"
 							]
 						},
@@ -1936,7 +1911,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Workbooks for User",
+					"name": "Query Workbooks for User",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -1946,18 +1921,18 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/users/5a5f8edb-c8d1-4fd3-971c-0fb159e07f19/workbooks",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/users/{{user-id}}/workbooks",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"users",
-								"5a5f8edb-c8d1-4fd3-971c-0fb159e07f19",
+								"{{user-id}}",
 								"workbooks"
 							]
 						},
@@ -1966,7 +1941,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Add View to Favorites",
+					"name": "Add View to Favorites",
 					"request": {
 						"method": "PUT",
 						"header": [
@@ -1980,18 +1955,18 @@
 							"raw": "<tsRequest> \n  <favorite label=\"I was Favorited by REST\"> \n    <view id=\"ae7a0f32-7faa-4e01-86bd-803e18ca7012\" /> \n  </favorite> \n</tsRequest>\n\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/favorites/5a5f8edb-c8d1-4fd3-971c-0fb159e07f19",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/favorites/{{workbook-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"favorites",
-								"5a5f8edb-c8d1-4fd3-971c-0fb159e07f19"
+								"{{workbook-id}}"
 							]
 						},
 						"description": "Add a view to the favorites list of a user"
@@ -1999,7 +1974,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete View from Favorites",
+					"name": "Delete View from Favorites",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -2013,22 +1988,22 @@
 							"raw": "\n\n"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/favorites/5a5f8edb-c8d1-4fd3-971c-0fb159e07f19/views/ae7a0f32-7faa-4e01-86bd-803e18ca7012",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/api/2.0/sites/{{site-id}}/favorites/{{user-id}}/views/{{view-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"api",
 								"2.0",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"favorites",
-								"5a5f8edb-c8d1-4fd3-971c-0fb159e07f19",
+								"{{user-id}}",
 								"views",
-								"ae7a0f32-7faa-4e01-86bd-803e18ca7012"
+								"{{view-id}}"
 							]
 						},
 						"description": "Deletes a view from the user's favorites list."
@@ -2036,7 +2011,7 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Delete Workbook",
+					"name": "Delete Workbook",
 					"request": {
 						"method": "DELETE",
 						"header": [
@@ -2050,25 +2025,25 @@
 							"raw": ""
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/0ebd8bd5-5cfb-44cf-91da-751c5c4d8017",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"0ebd8bd5-5cfb-44cf-91da-751c5c4d8017"
+								"{{workbook-id}}"
 							]
 						}
 					},
 					"response": []
 				},
 				{
-					"name": "Datasources: Download Workbook",
+					"name": "Download Workbook",
 					"request": {
 						"method": "GET",
 						"header": [
@@ -2078,18 +2053,18 @@
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/798ce163-c31d-4c3e-a44a-4d534ea7294d/content",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/content",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"798ce163-c31d-4c3e-a44a-4d534ea7294d",
+								"{{workbook-id}}",
 								"content"
 							]
 						},
@@ -2098,28 +2073,28 @@
 					"response": []
 				},
 				{
-					"name": "Workbook Management: Query Workbook Connections",
+					"name": "Query Workbook Connections",
 					"request": {
 						"method": "GET",
 						"header": [
 							{
 								"key": "X-Tableau-Auth",
-								"value": "86e6bcbcdabb344afd5c45fb970be061"
+								"value": "{{auth-token}}"
 							}
 						],
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8/connections",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/{{workbook-id}}/connections",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
-								"c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
+								"{{workbook-id}}",
 								"connections"
 							]
 						},
@@ -2142,16 +2117,16 @@
 							"raw": "<tsRequest>\n\t<connection serverAddress=\"newAddr\" serverPort=\"5435\" userName=\"newUserName\" password=\"newPass\" />\n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8/connections/3c52ec95-01ff-4043-b39b-0f54728fb76a",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8/connections/3c52ec95-01ff-4043-b39b-0f54728fb76a",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
 								"c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
 								"connections",
@@ -2177,16 +2152,16 @@
 							"raw": "<tsRequest> \n  <workbook> \n     <project id=\"06ca4b01-f882-4f7a-b4b5-60eb8e8bff8f\"/> \n     <owner id=\"4b10f75f-a1e7-4df4-8cd3-6b4ced0e03bc\" />\n </workbook> \n</tsRequest>"
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks/c2f3b70c-950d-420f-a1e8-2c13607ae4e8",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks",
 								"c2f3b70c-950d-420f-a1e8-2c13607ae4e8"
 							]
@@ -2221,16 +2196,16 @@
 							]
 						},
 						"url": {
-							"raw": "http://localhost/api/2.0/sites/8732fba8-4336-4a96-a3e6-b99f65d9e161/workbooks?overwrite=true",
+							"raw": "http://{{ts_hostname}}/api/{{version}}/sites/{{site-id}}/workbooks?overwrite=true",
 							"protocol": "http",
 							"host": [
-								"localhost"
+								"{{ts_hostname}}"
 							],
 							"path": [
 								"api",
-								"2.0",
+								"{{version}}",
 								"sites",
-								"8732fba8-4336-4a96-a3e6-b99f65d9e161",
+								"{{site-id}}",
 								"workbooks"
 							],
 							"query": [
