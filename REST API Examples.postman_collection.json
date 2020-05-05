@@ -1,7 +1,7 @@
 {
 	"info": {
 		"_postman_id": "2c6dadc9-85e2-ed41-b9c7-48c3544e3a80",
-		"name": "REST API Examples",
+		"name": "Tableau REST API",
 		"schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json"
 	},
 	"item": [
