@@ -40,7 +40,7 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "<tsRequest>\n\t<credentials name=\"Admin\" password=\"pass\">\n    \t<site contentUrl=\"{{site-id}}\" />\n        <user id=\"{{user-id}}\"/>\n      </credentials>\n</tsRequest>"
+							"raw": "<tsRequest>\n\t<credentials name=\"{{ts_admin_name}}\" password=\"{{ts_admin_pass}}\">\n    \t<site contentUrl=\"{{site-id}}\" />\n        <user id=\"{{user-id}}\"/>\n      </credentials>\n</tsRequest>"
 						},
 						"url": {
 							"raw": "http://{{ts_hostname}}/api/{{version}}/auth/signin",
